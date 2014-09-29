@@ -1,5 +1,6 @@
 require 'electronics/circuit'
 require 'electronics/component'
+require 'electronics/pin'
 require 'electronics/errors'
 require 'electronics/source/dc'
 require 'electronics/extensions/integer'
