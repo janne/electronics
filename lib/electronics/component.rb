@@ -1,6 +1,6 @@
 module Electronics
   class Component
-    attr_reader :name, :terminals
+    attr_reader :name, :terminals, :circuit
     def initialize(circuit, opts = {})
       @circuit = circuit
       @circuit.add(self)

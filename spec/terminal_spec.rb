@@ -22,6 +22,10 @@ describe Terminal do
     it "is not possible to connect a terminal twice" do
       expect { terminal.connect(terminal2); terminal.connect(terminal2) }.to raise_error(InvalidTerminal, "Terminal is already connected")
     end
+    it "is not possible to connect to another circuit" do
+      invalid = Terminal.new(Component.new(Circuit.new))
+      expect { terminal.connect(invalid) }.to raise_error(InvalidTerminal, "Terminal belongs to another circuit")
+    end
     it "is connected to an existing node, if available" do
       terminal3 = described_class.new(component)
       terminal3.connect(terminal2)
