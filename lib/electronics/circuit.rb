@@ -11,6 +11,7 @@ module Electronics
         raise Electronics::InvalidComponent, "'#{component}' is not a component"
       end
       @components << component
+      component
     end
   end
 end
