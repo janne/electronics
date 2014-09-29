@@ -20,9 +20,4 @@ describe Source::DC do
   it "has two terminals" do
     expect(dc.terminals.length).to eq 2
   end
-
-  it "has a voltage diff of 9V by default" do
-    voltage = (dc.vcc.voltage - dc.gnd.voltage)
-    expect(voltage).to eq 9.V
-  end
 end

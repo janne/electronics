@@ -3,10 +3,8 @@ module Electronics
     class DC < Component
       attr_reader :voltage
       def initialize(opts = {})
-        super(opts)
+        super({terminals: %w[gnd vcc]}.merge(opts))
         @voltage = opts.fetch(:voltage, 9.V)
-        @terminals[:gnd] = Terminal.new
-        @terminals[:vcc] = Terminal.new(voltage: @voltage)
       end
     end
   end

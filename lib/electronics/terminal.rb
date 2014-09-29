@@ -1,14 +1,9 @@
 module Electronics
   class Terminal
-    attr_reader :name, :connections
-    def initialize(opts = {})
+    attr_reader :name, :component
+    def initialize(component, opts = {})
+      @component = component
       @name = opts.fetch(:name, "")
-      @voltage = opts.fetch(:voltage, nil)
-      @connections = opts.fetch(:connections, [])
-    end
-
-    def voltage
-      @voltage || 0
     end
 
     def connect(terminal)

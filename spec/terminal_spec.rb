@@ -1,14 +1,17 @@
 require 'spec_helper'
 
 describe Terminal do
-  let(:terminal) { described_class.new }
-  it "has blank name and zero voltage by default" do
+  let(:component) { Component.new }
+  let(:terminal) { described_class.new(component) }
+  it "has blank name by default" do
     expect(terminal.name).to eq ""
-    expect(terminal.voltage).to eq 0
+  end
+  it "has the given component" do
+    expect(terminal.component).to eq component
   end
 
   describe "#connect" do
-    let(:terminal2) { described_class.new }
+    let(:terminal2) { described_class.new(component) }
     it "can connect one terminal to another" do
       expect { terminal2.connect(terminal) }.to change(terminal2.connections, :length).from(0).to(1)
     end

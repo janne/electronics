@@ -20,17 +20,18 @@ describe Component do
     end
 
     context "with terminals" do
-      let(:vcc) { Terminal.new(voltage: 5.V) }
-      let(:gnd) { Terminal.new(voltage: 0.V) }
-      let(:terminals) { { vcc: vcc, gnd: gnd } }
-      let(:component_with_terminals) { described_class.new terminals: terminals }
+      let(:component_with_terminals) { described_class.new terminals: %w[vcc gnd] }
 
       it "has two terminals" do
         expect(component_with_terminals.terminals.length).to eq 2
       end
 
       it "answers to terminals by name" do
-        expect(component_with_terminals.vcc).to eq vcc
+        expect(component_with_terminals.vcc).to be_a Terminal
+      end
+
+      it "has terminals that know what component they belong to" do
+        expect(component_with_terminals.vcc.component).to eq component_with_terminals
       end
     end
   end
