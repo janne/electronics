@@ -13,4 +13,10 @@ describe Electronics::Component do
       expect(component_with_name.name).to eq 'foo'
     end
   end
+
+  describe "#pins" do
+    it "has no pins by default" do
+      expect(component.pins).to be_empty
+    end
+  end
 end
