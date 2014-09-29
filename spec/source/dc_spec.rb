@@ -22,7 +22,7 @@ describe Electronics::Source::DC do
   end
 
   it "has a voltage diff of 9V by default" do
-    voltage = (dc.pins[0].voltage - dc.pins[1].voltage).abs
+    voltage = (dc.vcc.voltage - dc.gnd.voltage)
     expect(voltage).to eq 9.V
   end
 end

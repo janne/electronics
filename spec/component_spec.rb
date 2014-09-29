@@ -18,5 +18,20 @@ describe Electronics::Component do
     it "has no pins by default" do
       expect(component.pins).to be_empty
     end
+
+    context "with pins" do
+      let(:vcc) { Electronics::Pin.new(voltage: 5.V) }
+      let(:gnd) { Electronics::Pin.new(voltage: 0.V) }
+      let(:pins) { { vcc: vcc, gnd: gnd } }
+      let(:component_with_pins) { described_class.new pins: pins }
+
+      it "has two pins" do
+        expect(component_with_pins.pins.length).to eq 2
+      end
+
+      it "answers to pins by name" do
+        expect(component_with_pins.vcc).to eq vcc
+      end
+    end
   end
 end
