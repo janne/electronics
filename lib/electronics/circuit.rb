@@ -7,6 +7,9 @@ module Electronics
     end
 
     def add(component)
+      unless component.is_a? Component
+        raise Electronics::InvalidComponent, "'#{component}' is not a component"
+      end
       @components << component
     end
   end

@@ -18,5 +18,9 @@ describe Electronics::Circuit do
       circuit.add(component)
       expect(circuit.components).to eq [component]
     end
+
+    it "should now allow non components" do
+      expect { circuit.add(true) }.to raise_error(Electronics::InvalidComponent, "'true' is not a component")
+    end
   end
 end
