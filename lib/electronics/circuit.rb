@@ -5,5 +5,9 @@ module Electronics
     def initialize
       @components = []
     end
+
+    def add(component)
+      @components << component
+    end
   end
 end

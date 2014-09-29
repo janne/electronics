@@ -11,4 +11,12 @@ describe Electronics::Circuit do
       expect(circuit.components).to be_empty
     end
   end
+
+  describe "#add" do
+    let(:component) { Electronics::Component.new }
+    it "should allow adding components" do
+      circuit.add(component)
+      expect(circuit.components).to eq [component]
+    end
+  end
 end
