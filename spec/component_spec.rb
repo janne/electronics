@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Electronics::Component do
+describe Component do
   let(:component) { described_class.new }
 
   describe "#name" do
@@ -20,8 +20,8 @@ describe Electronics::Component do
     end
 
     context "with pins" do
-      let(:vcc) { Electronics::Pin.new(voltage: 5.V) }
-      let(:gnd) { Electronics::Pin.new(voltage: 0.V) }
+      let(:vcc) { Pin.new(voltage: 5.V) }
+      let(:gnd) { Pin.new(voltage: 0.V) }
       let(:pins) { { vcc: vcc, gnd: gnd } }
       let(:component_with_pins) { described_class.new pins: pins }
 

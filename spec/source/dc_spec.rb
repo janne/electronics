@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Electronics::Source::DC do
+describe Source::DC do
   let(:dc) { described_class.new }
 
   it "inherits component options" do
