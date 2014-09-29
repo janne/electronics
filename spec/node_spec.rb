@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Node do
-  let(:component) { Component.new(terminals: %w[a b c]) }
+  let(:circuit) { Circuit.new }
+  let(:component) { Component.new(circuit, terminals: %w[a b c]) }
   let(:node) { described_class.new(component.terminals[:a], component.terminals[:b]) }
   describe "#new" do
     it "has two terminals as a start" do

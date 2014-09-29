@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe Source::DC do
-  let(:dc) { described_class.new }
+  let(:circuit) { Circuit.new }
+  let(:dc) { described_class.new(circuit) }
 
   it "inherits component options" do
-    dc_with_name = described_class.new(name: "+5V")
+    dc_with_name = described_class.new(circuit, name: "+5V")
     expect(dc_with_name.name).to eq "+5V"
   end
 
@@ -13,7 +14,7 @@ describe Source::DC do
   end
 
   it "allows setting voltage" do
-    dc_with_5v = described_class.new(voltage: 5.mV)
+    dc_with_5v = described_class.new(circuit, voltage: 5.mV)
     expect(dc_with_5v.voltage).to eq 5.mV
   end
 

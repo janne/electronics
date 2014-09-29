@@ -12,14 +12,15 @@ describe Circuit do
     end
   end
 
-  describe "#add" do
-    let(:component) { Component.new }
-    it "should allow adding components" do
-      circuit.add(component)
+  describe "#components" do
+    let(:component) { Component.new(circuit) }
+    it "should have components" do
       expect(circuit.components).to eq [component]
     end
+  end
 
-    it "should now allow non components" do
+  describe "#add" do
+    it "should not allow non components" do
       expect { circuit.add(true) }.to raise_error(InvalidComponent, "'true' is not a component")
     end
   end

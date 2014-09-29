@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Terminal do
-  let(:component) { Component.new }
+  let(:circuit) { Circuit.new }
+  let(:component) { Component.new(circuit) }
   let(:terminal) { described_class.new(component) }
   it "has blank name by default" do
     expect(terminal.name).to eq ""

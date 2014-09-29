@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe Component do
-  let(:component) { described_class.new }
+  let(:circuit) { Circuit.new }
+  let(:component) { described_class.new(circuit) }
 
   describe "#name" do
-    let(:component_with_name) { described_class.new(name: 'foo') }
+    let(:component_with_name) { described_class.new(circuit, name: 'foo') }
     it "has no name by default" do
       expect(component.name).to be_empty
     end
@@ -20,7 +21,7 @@ describe Component do
     end
 
     context "with terminals" do
-      let(:component_with_terminals) { described_class.new terminals: %w[vcc gnd] }
+      let(:component_with_terminals) { described_class.new(circuit, terminals: %w[vcc gnd]) }
 
       it "has two terminals" do
         expect(component_with_terminals.terminals.length).to eq 2

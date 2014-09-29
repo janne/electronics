@@ -1,11 +1,12 @@
 module Electronics
   class Component
     attr_reader :name, :terminals
-    def initialize(opts = {})
+    def initialize(circuit, opts = {})
+      @circuit = circuit
+      @circuit.add(self)
       @name = opts.fetch(:name, "")
-      terminal_names = opts.fetch(:terminals, [])
       @terminals = {}
-      terminal_names.each do |name|
+      opts.fetch(:terminals, []).each do |name|
         @terminals[name.to_sym] = Terminal.new(self, name: name.to_s)
       end
     end
