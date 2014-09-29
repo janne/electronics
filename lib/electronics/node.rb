@@ -7,8 +7,8 @@ module Electronics
     end
 
     def add(terminal)
-      raise(Electronics::InvalidTerminal, "'#{terminal}' is not a terminal") unless terminal.is_a?(Terminal)
-      raise(Electronics::InvalidTerminal, "Terminal is already connected") if @terminals.include?(terminal)
+      raise(InvalidTerminal, "'#{terminal}' is not a terminal") unless terminal.is_a?(Terminal)
+      raise(InvalidTerminal, "Terminal is already connected") if @terminals.include?(terminal)
       @terminals << terminal
     end
   end
