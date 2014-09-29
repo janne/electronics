@@ -17,8 +17,8 @@ describe Source::DC do
     expect(dc_with_5v.voltage).to eq 5.mV
   end
 
-  it "has two pins" do
-    expect(dc.pins.length).to eq 2
+  it "has two terminals" do
+    expect(dc.terminals.length).to eq 2
   end
 
   it "has a voltage diff of 9V by default" do

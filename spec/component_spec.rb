@@ -14,23 +14,23 @@ describe Component do
     end
   end
 
-  describe "#pins" do
-    it "has no pins by default" do
-      expect(component.pins).to be_empty
+  describe "#terminals" do
+    it "has no terminals by default" do
+      expect(component.terminals).to be_empty
     end
 
-    context "with pins" do
-      let(:vcc) { Pin.new(voltage: 5.V) }
-      let(:gnd) { Pin.new(voltage: 0.V) }
-      let(:pins) { { vcc: vcc, gnd: gnd } }
-      let(:component_with_pins) { described_class.new pins: pins }
+    context "with terminals" do
+      let(:vcc) { Terminal.new(voltage: 5.V) }
+      let(:gnd) { Terminal.new(voltage: 0.V) }
+      let(:terminals) { { vcc: vcc, gnd: gnd } }
+      let(:component_with_terminals) { described_class.new terminals: terminals }
 
-      it "has two pins" do
-        expect(component_with_pins.pins.length).to eq 2
+      it "has two terminals" do
+        expect(component_with_terminals.terminals.length).to eq 2
       end
 
-      it "answers to pins by name" do
-        expect(component_with_pins.vcc).to eq vcc
+      it "answers to terminals by name" do
+        expect(component_with_terminals.vcc).to eq vcc
       end
     end
   end

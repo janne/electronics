@@ -5,8 +5,8 @@ module Electronics
       def initialize(opts = {})
         super(opts)
         @voltage = opts.fetch(:voltage, 9.V)
-        @pins[:gnd] = Pin.new
-        @pins[:vcc] = Pin.new(voltage: @voltage)
+        @terminals[:gnd] = Terminal.new
+        @terminals[:vcc] = Terminal.new(voltage: @voltage)
       end
     end
   end
