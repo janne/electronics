@@ -155,5 +155,29 @@ describe Circuit do
         expect(@dc3.gnd.node.voltage).to eq 10.V
       end
     end
+
+    context "with resistor" do
+      before do
+        #  +-------+
+        # DC1      R1
+        #  +---+---+
+        #      |
+        #     GND
+        @gnd = Source::Ground.new(circuit)
+        @dc1.gnd.connect @gnd.gnd
+        @r1 = Analog::Resistor.new(circuit)
+        @r1.a.connect @dc1.vcc
+        @r1.b.connect @gnd.gnd
+        circuit.analyze!
+      end
+
+      it "should have zero volt ground" do
+        expect(@gnd.gnd.node.voltage).to eq 0.V
+      end
+
+      it "should have 5V over resistor" do
+        expect(@r1.a.node.voltage).to eq 5.V
+      end
+    end
   end
 end
