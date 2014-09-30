@@ -15,8 +15,8 @@ module Electronics
           set_terminal.node.voltage = base_terminal.node.voltage + voltage
 
           # Cascade to nearby components
-          (set_terminal.node.terminals - [set_terminal]).map(&:component).each do |c|
-            c.set_voltage_in_relation_to(set_terminal)
+          (set_terminal.node.terminals - [set_terminal]).each do |terminal|
+            terminal.component.set_voltage_in_relation_to(terminal)
           end
         end
       end
