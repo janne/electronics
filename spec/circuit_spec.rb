@@ -27,9 +27,9 @@ describe Circuit do
 
   context "with components" do
     before do
-      @c1 = Source::DC.new(circuit, voltage: 5.V)
-      @c2 = Source::DC.new(circuit, voltage: 5.V)
-      @c3 = Source::DC.new(circuit, voltage: 5.V)
+      @dc1 = Source::DC.new(circuit, voltage: 5.V)
+      @dc2 = Source::DC.new(circuit, voltage: 5.V)
+      @dc3 = Source::DC.new(circuit, voltage: 5.V)
     end
 
     context "without connections" do
@@ -42,7 +42,7 @@ describe Circuit do
 
     context "with one connection" do
       before do
-        @c1.gnd.connect @c2.vcc
+        @dc1.gnd.connect @dc2.vcc
       end
 
       describe "#ground_nodes" do
@@ -54,8 +54,8 @@ describe Circuit do
 
     context "with serial connections" do
       before do
-        @c1.gnd.connect @c2.vcc
-        @c2.gnd.connect @c3.vcc
+        @dc1.gnd.connect @dc2.vcc
+        @dc2.gnd.connect @dc3.vcc
       end
 
       describe "#nodes" do
@@ -85,17 +85,17 @@ describe Circuit do
 
         it "sets the other node to -5v" do
           circuit.analyze!
-          expect(@c2.gnd.node.voltage).to eq -5.V
+          expect(@dc2.gnd.node.voltage).to eq -5.V
         end
 
         context "with fourth DC" do
           before do
-            @c4 = Source::DC.new(circuit, voltage: 5.V)
-            @c3.gnd.connect @c4.vcc
+            @dc4 = Source::DC.new(circuit, voltage: 5.V)
+            @dc3.gnd.connect @dc4.vcc
           end
           it "sets the third node to -10v" do
             circuit.analyze!
-            expect(@c4.vcc.node.voltage).to eq -10.V
+            expect(@dc4.vcc.node.voltage).to eq -10.V
           end
         end
       end
@@ -103,7 +103,7 @@ describe Circuit do
 
     context "with parallel connections" do
       before do
-        @c1.vcc.connect @c2.vcc
+        @dc1.vcc.connect @dc2.vcc
       end
 
       it "has a node, the ground node, with 5V" do
@@ -117,9 +117,9 @@ describe Circuit do
     context "with ground" do
       before do
         @gnd = Source::Ground.new(circuit)
-        @c1.gnd.connect @gnd.gnd
-        @c2.gnd.connect @c1.vcc
-        @c3.gnd.connect @c2.vcc
+        @dc1.gnd.connect @gnd.gnd
+        @dc2.gnd.connect @dc1.vcc
+        @dc3.gnd.connect @dc2.vcc
       end
 
       it "has ground zero" do
@@ -129,7 +129,7 @@ describe Circuit do
 
       it "calculates from ground" do
         circuit.analyze!
-        expect(@c3.gnd.node.voltage).to eq 10.V
+        expect(@dc3.gnd.node.voltage).to eq 10.V
       end
     end
   end
