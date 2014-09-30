@@ -79,13 +79,13 @@ describe Circuit do
         end
 
         it "sets the ground node to 0 volt" do
-          expect(circuit.nodes.first).to receive(:voltage=).with(0)
           circuit.analyze!
+          expect(circuit.nodes.first.voltage).to eq 0
         end
 
-        it "sets the other node to 5v" do
-          expect(@c2.gnd.node).to receive(:voltage=).with(-5.V)
+        it "sets the other node to -5v" do
           circuit.analyze!
+          expect(@c2.gnd.node.voltage).to eq -5.V
         end
       end
     end
