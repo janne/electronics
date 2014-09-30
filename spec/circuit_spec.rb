@@ -24,4 +24,22 @@ describe Circuit do
       expect { circuit.add(true) }.to raise_error(InvalidComponent, "'true' is not a component")
     end
   end
+
+  describe "#nodes" do
+    it "should be empty without components" do
+      expect(circuit.nodes).to be_empty
+    end
+
+    it "should be empty without connections" do
+      3.times { Source::DC.new(circuit) }
+      expect(circuit.nodes).to be_empty
+    end
+
+    it "should return one node per connection" do
+      cs = Array.new(3).map{ Source::DC.new(circuit) }
+      cs[0].gnd.connect cs[1].vcc
+      cs[1].gnd.connect cs[2].vcc
+      expect(circuit.nodes.length).to eq 2
+    end
+  end
 end
