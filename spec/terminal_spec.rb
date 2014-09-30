@@ -34,4 +34,11 @@ describe Terminal do
       expect(terminal2.node).to eq terminal3.node
     end
   end
+
+  describe "#voltage" do
+    it "calls voltage on it's node" do
+      terminal.node = double(:node, voltage: 5.V)
+      expect(terminal.voltage).to eq 5.V
+    end
+  end
 end

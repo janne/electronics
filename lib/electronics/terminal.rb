@@ -21,5 +21,9 @@ module Electronics
         @node.add(self)
       end
     end
+
+    def voltage
+      @node.voltage if @node
+    end
   end
 end
