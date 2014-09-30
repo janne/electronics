@@ -23,8 +23,8 @@ describe Node do
   end
 
   describe "#voltage" do
-    it "is initially 0" do
-      expect(node.voltage).to eq 0.V
+    it "is initially nil" do
+      expect(node.voltage).to be_nil
     end
 
     it "can be set" do
@@ -35,7 +35,7 @@ describe Node do
 
   describe "#current" do
     it "is initially 0" do
-      expect(node.current).to eq 0.A
+      expect(node.current).to be_nil
     end
 
     it "can be set" do
@@ -47,11 +47,11 @@ describe Node do
   describe "#reset" do
     it "resets the voltage" do
       node.voltage = 5.V
-      expect { node.reset! }.to change(node, :voltage).from(5.V).to(0.V)
+      expect { node.reset! }.to change(node, :voltage).from(5.V).to(nil)
     end
     it "resets the current" do
       node.current = 20.mA
-      expect { node.reset! }.to change(node, :current).from(20.mA).to(0.mA)
+      expect { node.reset! }.to change(node, :current).from(20.mA).to(nil)
     end
   end
 end

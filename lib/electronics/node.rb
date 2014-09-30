@@ -5,11 +5,11 @@ module Electronics
 
     def initialize(terminal1, terminal2)
       @terminals = [terminal1, terminal2]
-      @voltage = @current = 0
+      reset!
     end
 
     def reset!
-      @voltage = @current = 0
+      @voltage = @current = nil
     end
 
     def add(terminal)
