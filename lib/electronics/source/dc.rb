@@ -8,16 +8,11 @@ module Electronics
       end
 
       def set_voltage_in_relation_to(base_terminal)
-        set_terminal = terminals.detect{|t| t != base_terminal}
+        set_terminal = base_terminal == gnd ? vcc : gnd
+        voltage = base_terminal == gnd ? @voltage : -@voltage
         if set_terminal.node
           raise AnalyzeError if set_terminal.node.voltage
-          voltage = set_terminal.name == 'vcc' ? @voltage : -@voltage
-          set_terminal.node.voltage = base_terminal.node.voltage + voltage
-
-          # Cascade to nearby components
-          (set_terminal.node.terminals - [set_terminal]).each do |terminal|
-            terminal.component.set_voltage_in_relation_to(terminal)
-          end
+          set_terminal.node.set_voltage(base_terminal.node.voltage + voltage, set_terminal)
         end
       end
     end
