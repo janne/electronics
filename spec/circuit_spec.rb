@@ -107,9 +107,9 @@ describe Circuit do
             # DC4
             @dc4 = Source::DC.new(circuit, voltage: 5.V)
             @dc3.gnd.connect @dc4.vcc
+            circuit.analyze!
           end
           it "sets the third node to -10v" do
-            circuit.analyze!
             expect(@dc4.vcc.node.voltage).to eq -10.V
           end
         end
@@ -121,10 +121,10 @@ describe Circuit do
         #  +----+
         # DC1  DC2
         @dc1.vcc.connect @dc2.vcc
+        circuit.analyze!
       end
 
       it "has a node, the ground node, with 5V" do
-        circuit.analyze!
         expect(circuit.nodes.length).to eq 1
         expect(circuit.nodes).to eq circuit.ground_nodes
         expect(circuit.ground_nodes.first.voltage).to eq 0.V
@@ -144,15 +144,14 @@ describe Circuit do
         @dc1.gnd.connect @gnd.gnd
         @dc2.gnd.connect @dc1.vcc
         @dc3.gnd.connect @dc2.vcc
+        circuit.analyze!
       end
 
       it "has ground zero" do
-        circuit.analyze!
         expect(@gnd.gnd.node.voltage).to eq 0.V
       end
 
       it "calculates from ground" do
-        circuit.analyze!
         expect(@dc3.gnd.node.voltage).to eq 10.V
       end
     end
