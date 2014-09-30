@@ -8,6 +8,14 @@ describe Integer do
     expect(42.F).to eq 42
   end
 
+  it "returns e+6 for mega" do
+    expect(10.MOhm).to eq 10_000_000
+  end
+
+  it "returns e+3 for kilo" do
+    expect(10.kOhm).to eq 10_000
+  end
+
   it "returns e-3 for the milli" do
     expect(42.mV).to eq 0.042
   end

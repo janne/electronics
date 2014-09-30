@@ -8,6 +8,16 @@ class Integer
   end
   units.each {|unit| alias_method unit, :base_unit}
 
+  def mega_unit
+    self*1000_000
+  end
+  units('M').each {|unit| alias_method unit, :mega_unit}
+
+  def kilo_unit
+    self*1000
+  end
+  units('k').each {|unit| alias_method unit, :kilo_unit}
+
   def milli_unit
     self/1000.0
   end
