@@ -25,6 +25,8 @@ module Electronics
     end
 
     def ground_nodes
+      gnds = @components.select{|c| c.is_a?(Source::Ground)}.map(&:gnd).map(&:node)
+      return gnds unless gnds.empty?
       dc_ground = nodes.detect do |node|
         gnds = node.terminals.select{|t| t.respond_to?(:gnd) }
         if !gnds.empty?

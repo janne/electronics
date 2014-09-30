@@ -113,5 +113,24 @@ describe Circuit do
         expect(circuit.ground_nodes.first.voltage).to eq 0.V
       end
     end
+
+    context "with ground" do
+      before do
+        @gnd = Source::Ground.new(circuit)
+        @c1.gnd.connect @gnd.gnd
+        @c2.gnd.connect @c1.vcc
+        @c3.gnd.connect @c2.vcc
+      end
+
+      it "has ground zero" do
+        circuit.analyze!
+        expect(@gnd.gnd.node.voltage).to eq 0.V
+      end
+
+      it "calculates from ground" do
+        circuit.analyze!
+        expect(@c3.gnd.node.voltage).to eq 10.V
+      end
+    end
   end
 end
