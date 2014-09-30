@@ -42,6 +42,9 @@ describe Circuit do
 
     context "with one connection" do
       before do
+        # DC1
+        #  |
+        # DC2
         @dc1.gnd.connect @dc2.vcc
       end
 
@@ -54,6 +57,11 @@ describe Circuit do
 
     context "with serial connections" do
       before do
+        # DC1
+        #  |
+        # DC2
+        #  |
+        # DC3
         @dc1.gnd.connect @dc2.vcc
         @dc2.gnd.connect @dc3.vcc
       end
@@ -90,6 +98,13 @@ describe Circuit do
 
         context "with fourth DC" do
           before do
+            # DC1
+            #  |
+            # DC2
+            #  |
+            # DC3
+            #  |
+            # DC4
             @dc4 = Source::DC.new(circuit, voltage: 5.V)
             @dc3.gnd.connect @dc4.vcc
           end
@@ -103,6 +118,8 @@ describe Circuit do
 
     context "with parallel connections" do
       before do
+        #  +----+
+        # DC1  DC2
         @dc1.vcc.connect @dc2.vcc
       end
 
@@ -116,6 +133,13 @@ describe Circuit do
 
     context "with ground" do
       before do
+        # DC3
+        #  |
+        # DC2
+        #  |
+        # DC1
+        #  |
+        # GND
         @gnd = Source::Ground.new(circuit)
         @dc1.gnd.connect @gnd.gnd
         @dc2.gnd.connect @dc1.vcc
