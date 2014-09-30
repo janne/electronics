@@ -1,6 +1,5 @@
-- Source::Ground
-  - All nodes connected to ground are returned in Circuit#ground_nodes
-- Analog::Resistor and currents
+- Add Analog::Resistor
+- Add currents
 
 Study material
 - [Nodal analysis](http://en.wikipedia.org/wiki/Nodal_analysis)
