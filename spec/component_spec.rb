@@ -27,6 +27,14 @@ describe Component do
         expect(component_with_terminals.terminals.length).to eq 2
       end
 
+      it "respond_to terminals by name" do
+        expect(component_with_terminals.respond_to? :vcc).to eq true
+      end
+
+      it "does not respond_to other names" do
+        expect { component_with_terminals.foo }.to raise_error(NoMethodError)
+      end
+
       it "answers to terminals by name" do
         expect(component_with_terminals.vcc).to be_a Terminal
       end

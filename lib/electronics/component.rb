@@ -8,6 +8,10 @@ module Electronics
       @terminals = opts.fetch(:terminals, []).map{|name| Terminal.new(self, name: name.to_s) }
     end
 
+    def respond_to?(m, include_private = false)
+      @terminals.any?{|t| t.name == m.to_s }
+    end
+
     def method_missing(m, *args)
       @terminals.detect{|t| t.name == m.to_s } || super
     end
