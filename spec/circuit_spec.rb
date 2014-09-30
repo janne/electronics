@@ -52,7 +52,7 @@ describe Circuit do
       end
     end
 
-    context "with connections" do
+    context "with serial connections" do
       before do
         @c1.gnd.connect @c2.vcc
         @c2.gnd.connect @c3.vcc
@@ -98,6 +98,19 @@ describe Circuit do
             expect(@c4.vcc.node.voltage).to eq -10.V
           end
         end
+      end
+    end
+
+    context "with parallel connections" do
+      before do
+        @c1.vcc.connect @c2.vcc
+      end
+
+      it "has a node, the ground node, with 5V" do
+        circuit.analyze!
+        expect(circuit.nodes.length).to eq 1
+        expect(circuit.nodes).to eq circuit.ground_nodes
+        expect(circuit.ground_nodes.first.voltage).to eq 0.V
       end
     end
   end
