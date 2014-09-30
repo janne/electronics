@@ -27,9 +27,9 @@ describe Circuit do
 
   context "with components" do
     before do
-      @c1 = Source::DC.new(circuit)
-      @c2 = Source::DC.new(circuit)
-      @c3 = Source::DC.new(circuit)
+      @c1 = Source::DC.new(circuit, voltage: 5.V)
+      @c2 = Source::DC.new(circuit, voltage: 5.V)
+      @c3 = Source::DC.new(circuit, voltage: 5.V)
     end
 
     context "without connections" do
@@ -80,6 +80,11 @@ describe Circuit do
 
         it "sets the ground node to 0 volt" do
           expect(circuit.nodes.first).to receive(:voltage=).with(0)
+          circuit.analyze!
+        end
+
+        it "sets the other node to 5v" do
+          expect(@c2.gnd.node).to receive(:voltage=).with(-5.V)
           circuit.analyze!
         end
       end

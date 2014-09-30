@@ -8,6 +8,9 @@ module Electronics
       @terminals = opts.fetch(:terminals, []).map{|name| Terminal.new(self, name: name.to_s) }
     end
 
+    def set_voltage_in_relation_to(terminal)
+    end
+
     def respond_to?(m, include_private = false)
       @terminals.any?{|t| t.name == m.to_s }
     end

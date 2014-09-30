@@ -17,6 +17,11 @@ module Electronics
 
       # Set ground voltage
       ground_nodes.each{|node| node.voltage = 0 }
+
+      # Set voltage on other side of components connected to ground voltage
+      ground_nodes.map(&:terminals).flatten.each do |terminal|
+        terminal.component.set_voltage_in_relation_to(terminal)
+      end
     end
 
     def ground_nodes
