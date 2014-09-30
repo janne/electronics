@@ -45,9 +45,9 @@ describe Circuit do
         @c1.gnd.connect @c2.vcc
       end
 
-      describe "#ground_node" do
+      describe "#ground_nodes" do
         it "returns the only node" do
-          expect(circuit.ground_node).to eq circuit.nodes.first
+          expect(circuit.ground_nodes).to eq circuit.nodes
         end
       end
     end
@@ -64,9 +64,9 @@ describe Circuit do
         end
       end
 
-      describe "#ground_node" do
+      describe "#ground_nodes" do
         it "returns the first node" do
-          expect(circuit.ground_node).to eq circuit.nodes.first
+          expect(circuit.ground_nodes).to eq [circuit.nodes.first]
         end
       end
 
@@ -79,7 +79,7 @@ describe Circuit do
         end
 
         it "sets the ground node to 0 volt" do
-          expect(circuit.ground_node).to receive(:voltage=).with(0)
+          expect(circuit.nodes.first).to receive(:voltage=).with(0)
           circuit.analyze!
         end
       end

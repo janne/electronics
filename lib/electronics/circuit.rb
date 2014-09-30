@@ -12,20 +12,21 @@ module Electronics
     end
 
     def analyze!
+      # Rest all nodes
       nodes.each(&:reset!)
-      ground_node.voltage = 0
+
+      # Set ground voltage
+      ground_nodes.each{|node| node.voltage = 0 }
     end
 
-    def ground_node
-      nodes.detect do |node|
-        gnds = node.terminals.select{|t| t.name == 'gnd'}
-        if gnds.empty?
-          nodes.first
-        else
-          dc_gnd = gnds.detect{|g| g.component.is_a?(Source::DC)}
-          dc_gnd.nil? ? gnds.first.node : dc_gnd.node
+    def ground_nodes
+      dc_ground = nodes.detect do |node|
+        gnds = node.terminals.select{|t| t.respond_to?(:gnd) }
+        if !gnds.empty?
+          gnds.any?{|g| g.component.is_a?(Source::DC)}
         end
       end
+      dc_ground.nil? ? [nodes.first] : [dc_ground]
     end
 
     def nodes
