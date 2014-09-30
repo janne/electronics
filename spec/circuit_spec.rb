@@ -87,6 +87,17 @@ describe Circuit do
           circuit.analyze!
           expect(@c2.gnd.node.voltage).to eq -5.V
         end
+
+        context "with fourth DC" do
+          before do
+            @c4 = Source::DC.new(circuit, voltage: 5.V)
+            @c3.gnd.connect @c4.vcc
+          end
+          it "sets the third node to -10v" do
+            circuit.analyze!
+            expect(@c4.vcc.node.voltage).to eq -10.V
+          end
+        end
       end
     end
   end
