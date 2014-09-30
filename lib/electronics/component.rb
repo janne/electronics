@@ -5,18 +5,11 @@ module Electronics
       @circuit = circuit
       @circuit.add(self)
       @name = opts.fetch(:name, "")
-      @terminals = {}
-      opts.fetch(:terminals, []).each do |name|
-        @terminals[name.to_sym] = Terminal.new(self, name: name.to_s)
-      end
+      @terminals = opts.fetch(:terminals, []).map{|name| Terminal.new(self, name: name.to_s) }
     end
 
     def method_missing(m, *args)
-      if @terminals.has_key?(m)
-        @terminals[m]
-      else
-        super
-      end
+      @terminals.detect{|t| t.name == m.to_s } || super
     end
   end
 end

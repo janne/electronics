@@ -35,7 +35,7 @@ module Electronics
     private
 
     def terminals
-      @components.map{|c| c.terminals.values }.flatten.uniq
+      @components.map{|c| c.terminals }.flatten.uniq
     end
   end
 end
