@@ -25,29 +25,64 @@ describe Circuit do
     end
   end
 
-  describe "#nodes" do
-    it "should be empty without components" do
-      expect(circuit.nodes).to be_empty
+  context "with components" do
+    before do
+      @c1 = Source::DC.new(circuit)
+      @c2 = Source::DC.new(circuit)
+      @c3 = Source::DC.new(circuit)
     end
 
-    it "should be empty without connections" do
-      3.times { Source::DC.new(circuit) }
-      expect(circuit.nodes).to be_empty
+    context "without connections" do
+      describe "#nodes" do
+        it "should be empty" do
+          expect(circuit.nodes).to be_empty
+        end
+      end
     end
 
-    it "should return one node per connection" do
-      cs = Array.new(3).map{ Source::DC.new(circuit) }
-      cs[0].gnd.connect cs[1].vcc
-      cs[1].gnd.connect cs[2].vcc
-      expect(circuit.nodes.length).to eq 2
-    end
-  end
+    context "with one connection" do
+      before do
+        @c1.gnd.connect @c2.vcc
+      end
 
-  describe "#ground_node" do
-    it "returns the only node, if available" do
-      cs = Array.new(2).map{ Source::DC.new(circuit) }
-      cs[0].gnd.connect cs[1].vcc
-      expect(circuit.ground_node).to eq circuit.nodes.first
+      describe "#ground_node" do
+        it "returns the only node" do
+          expect(circuit.ground_node).to eq circuit.nodes.first
+        end
+      end
+    end
+
+    context "with connections" do
+      before do
+        @c1.gnd.connect @c2.vcc
+        @c2.gnd.connect @c3.vcc
+      end
+
+      describe "#nodes" do
+        it "should return one node per connection" do
+          expect(circuit.nodes.length).to eq 2
+        end
+      end
+
+      describe "#ground_node" do
+        it "returns the first node" do
+          expect(circuit.ground_node).to eq circuit.nodes.first
+        end
+      end
+
+      describe "#analyze!" do
+        it "should reset all nodes" do
+          n1, n2 = circuit.nodes
+          expect(n1).to receive(:reset!)
+          expect(n2).to receive(:reset!)
+          circuit.analyze!
+        end
+
+        it "should set the ground node to 0 volt" do
+          expect(circuit.ground_node).to receive(:voltage=).with(0)
+          circuit.analyze!
+        end
+      end
     end
   end
 end

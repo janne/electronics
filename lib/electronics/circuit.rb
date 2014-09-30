@@ -11,6 +11,11 @@ module Electronics
       @components << component
     end
 
+    def analyze!
+      nodes.each(&:reset!)
+      ground_node.voltage = 0
+    end
+
     def ground_node
       nodes.detect do |node|
         gnds = node.terminals.select{|t| t.name == 'gnd'}
