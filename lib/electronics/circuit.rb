@@ -11,6 +11,18 @@ module Electronics
       @components << component
     end
 
+    def ground_node
+      nodes.detect do |node|
+        gnds = node.terminals.select{|t| t.name == 'gnd'}
+        if gnds.empty?
+          nodes.first
+        else
+          dc_gnd = gnds.detect{|g| g.component.is_a?(Source::DC)}
+          dc_gnd.nil? ? gnds.first.node : dc_gnd.node
+        end
+      end
+    end
+
     def nodes
       terminals.map(&:node).compact.uniq
     end

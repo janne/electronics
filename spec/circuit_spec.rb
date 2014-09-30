@@ -42,4 +42,12 @@ describe Circuit do
       expect(circuit.nodes.length).to eq 2
     end
   end
+
+  describe "#ground_node" do
+    it "returns the only node, if available" do
+      cs = Array.new(2).map{ Source::DC.new(circuit) }
+      cs[0].gnd.connect cs[1].vcc
+      expect(circuit.ground_node).to eq circuit.nodes.first
+    end
+  end
 end
