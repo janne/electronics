@@ -1,9 +1,15 @@
 module Electronics
   class Node
     attr_reader :terminals
+    attr_accessor :voltage, :current
 
     def initialize(terminal1, terminal2)
       @terminals = [terminal1, terminal2]
+      @voltage = @current = 0
+    end
+
+    def reset!
+      @voltage = @current = 0
     end
 
     def add(terminal)

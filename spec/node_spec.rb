@@ -21,4 +21,37 @@ describe Node do
       expect { node.add(component.terminals[:c]) }.to change(node.terminals, :length).from(2).to(3)
     end
   end
+
+  describe "#voltage" do
+    it "is initially 0" do
+      expect(node.voltage).to eq 0.V
+    end
+
+    it "can be set" do
+      node.voltage = 20.mV
+      expect(node.voltage).to eq 20.mV
+    end
+  end
+
+  describe "#current" do
+    it "is initially 0" do
+      expect(node.current).to eq 0.A
+    end
+
+    it "can be set" do
+      node.current = 10.mA
+      expect(node.current).to eq 10.mA
+    end
+  end
+
+  describe "#reset" do
+    it "resets the voltage" do
+      node.voltage = 5.V
+      expect { node.reset! }.to change(node, :voltage).from(5.V).to(0.V)
+    end
+    it "resets the current" do
+      node.current = 20.mA
+      expect { node.reset! }.to change(node, :current).from(20.mA).to(0.mA)
+    end
+  end
 end
