@@ -7,20 +7,20 @@ describe Circuit do
       expect(circuit).to be_an_instance_of(Circuit)
     end
 
-    it "should have no components initially" do
+    it "has no components initially" do
       expect(circuit.components).to be_empty
     end
   end
 
   describe "#components" do
     let(:component) { Component.new(circuit) }
-    it "should have components" do
+    it "has components" do
       expect(circuit.components).to eq [component]
     end
   end
 
   describe "#add" do
-    it "should not allow non components" do
+    it "does not allow non components" do
       expect { circuit.add(true) }.to raise_error(InvalidComponent, "'true' is not a component")
     end
   end
@@ -34,7 +34,7 @@ describe Circuit do
 
     context "without connections" do
       describe "#nodes" do
-        it "should be empty" do
+        it "is empty" do
           expect(circuit.nodes).to be_empty
         end
       end
@@ -59,7 +59,7 @@ describe Circuit do
       end
 
       describe "#nodes" do
-        it "should return one node per connection" do
+        it "returns one node per connection" do
           expect(circuit.nodes.length).to eq 2
         end
       end
@@ -71,14 +71,14 @@ describe Circuit do
       end
 
       describe "#analyze!" do
-        it "should reset all nodes" do
+        it "resets all nodes" do
           n1, n2 = circuit.nodes
           expect(n1).to receive(:reset!)
           expect(n2).to receive(:reset!)
           circuit.analyze!
         end
 
-        it "should set the ground node to 0 volt" do
+        it "sets the ground node to 0 volt" do
           expect(circuit.ground_node).to receive(:voltage=).with(0)
           circuit.analyze!
         end
